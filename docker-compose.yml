@@ -1,14 +1,17 @@
 services:
   mysql_assignment:
     image: mysql:8.0
-    container_name: mysql_container
+    container_name: mysql
     environment:
-      MYSQL_ROOT_PASSWORD: Passw0rd!
+      MYSQL_USER: assignment
+      MYSQL_PASSWORD: 123456
       MYSQL_DATABASE: assignment
     ports:
-      - "3309:3306"
+      - "3310:3306"
     volumes:
       - mysql_data:/var/lib/mysql
+    networks:
+      - assignment_network
 
   api:
     build:
@@ -20,7 +23,14 @@ services:
     depends_on:
       - mysql_assignment
     environment:
-      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_ENVIRONMENT=Docker
+    networks:
+      - assignment_network
 
 volumes:
   mysql_data:
+
+networks:
+  assignment_network:
+    driver: bridge
+        
