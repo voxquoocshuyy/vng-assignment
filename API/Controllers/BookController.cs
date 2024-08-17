@@ -1,11 +1,13 @@
 using Application.Common.Models;
 using Application.Common.Results;
 using Application.Features.Books.Commands.CreateBook;
+using Application.Features.Books.Commands.DeleteBook;
 using Application.Features.Books.Commands.UpdateBook;
 using Application.Features.Books.Queries.GetBook;
 using Application.Features.Books.Queries.GetBooks;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace API.Controllers;
 [Route("api/v1/[controller]")]
@@ -20,6 +22,7 @@ public class BookController : ControllerBase
     }
     
     [HttpGet]
+    [SwaggerOperation(Summary = "Get all books")]
     [ProducesResponseType(typeof(ApiResult<IEnumerable<BookDto>>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<BookDto>>> GetBooks()
     {
@@ -29,6 +32,7 @@ public class BookController : ControllerBase
     }
     
     [HttpGet("{id}")]
+    [SwaggerOperation(Summary = "Get book by id")]
     [ProducesResponseType(typeof(ApiResult<BookDto>), StatusCodes.Status200OK)]
     public async Task<ActionResult<IEnumerable<BookDto>>> GetBooks(int id)
     {
@@ -38,6 +42,7 @@ public class BookController : ControllerBase
     }
     
     [HttpPost]
+    [SwaggerOperation(Summary = "Create a new book")]
     [ProducesResponseType(typeof(ApiResult<IEnumerable<int>>), StatusCodes.Status201Created)]
     public async Task<ActionResult<IEnumerable<int>>> CreateBook([FromBody] CreateBookCommand command)
     {
@@ -46,10 +51,21 @@ public class BookController : ControllerBase
     }
     
     [HttpPut("{id}")]
+    [SwaggerOperation(Summary = "Update a book")]
     [ProducesResponseType(typeof(ApiResult<BookDto>), StatusCodes.Status204NoContent)]
     public async Task<ActionResult> UpdateBook(int id, [FromBody] UpdateBookCommand command)
     {
         command.SetId(id);
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+    
+    [HttpDelete("{id:int}")]
+    [SwaggerOperation(Summary = "Delete a book")]
+    [ProducesResponseType(typeof(NoContentResult),StatusCodes.Status204NoContent)]
+    public async Task<ActionResult> DeleteBook(int id)
+    {
+        var command = new DeleteBookCommand(id);
         var result = await _mediator.Send(command);
         return Ok(result);
     }

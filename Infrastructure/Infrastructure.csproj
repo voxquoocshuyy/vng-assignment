@@ -12,6 +12,13 @@
 
     <ItemGroup>
       <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="6.0.3" />
+      <PackageReference Include="Quartz" Version="3.13.0" />
+      <PackageReference Include="Quartz.Extensions.DependencyInjection" Version="3.13.0" />
+      <PackageReference Include="Quartz.Extensions.Hosting" Version="3.13.0" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Persistence\Migrations\" />
     </ItemGroup>
 
 </Project>
