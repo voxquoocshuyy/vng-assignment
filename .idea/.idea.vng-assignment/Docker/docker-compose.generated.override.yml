@@ -1,0 +1,21 @@
+# This is a generated file. Not intended for manual editing.
+version: "3.8"
+services:
+  api:
+    build:
+      context: "/Users/quochuy/Study/DotNet/vng-assignment"
+      dockerfile: "API/Dockerfile"
+      target: "base"
+    command: []
+    entrypoint:
+    - "dotnet"
+    - "/app/bin/Debug/net6.0/API.dll"
+    environment:
+      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+    image: "api:dev"
+    ports: []
+    volumes:
+    - "/Users/quochuy/.nuget/packages:/root/.nuget/packages"
+    - "/Users/quochuy/Study/DotNet/vng-assignment/API:/app:rw"
+    - "/Users/quochuy/Study/DotNet/vng-assignment:/src:rw"
+    working_dir: "/app"

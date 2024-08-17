@@ -1,11 +1,9 @@
-version: '3.8'
-
 services:
-  mysql:
+  mysql_assignment:
     image: mysql:8.0
     container_name: mysql_container
     environment:
-      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_ROOT_PASSWORD: Passw0rd!
       MYSQL_DATABASE: assignment
     ports:
       - "3309:3306"
@@ -20,7 +18,7 @@ services:
     ports:
       - "8081:80"
     depends_on:
-      - mysql
+      - mysql_assignment
     environment:
       - ASPNETCORE_ENVIRONMENT=Development
 

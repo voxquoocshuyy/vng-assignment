@@ -1,9 +1,10 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Domain.Common;
 
 namespace Domain.Entities;
 
-public class Book
+public class Book : EntityBase<int>
 {
     [Key]
     [Column(name: "Id", TypeName = "int")]
