@@ -1,9 +1,8 @@
 # This is a generated file. Not intended for manual editing.
-version: "3.8"
 services:
   api:
     build:
-      context: "/Users/quochuy/Study/DotNet/vng-assignment"
+      context: "D:\\New folder\\vng-assignment"
       dockerfile: "API/Dockerfile"
       target: "base"
     command: []
@@ -15,7 +14,7 @@ services:
     image: "api:dev"
     ports: []
     volumes:
-    - "/Users/quochuy/.nuget/packages:/root/.nuget/packages"
-    - "/Users/quochuy/Study/DotNet/vng-assignment/API:/app:rw"
-    - "/Users/quochuy/Study/DotNet/vng-assignment:/src:rw"
+    - "C:\\Users\\ASUS\\.nuget\\packages:/root/.nuget/packages"
+    - "D:\\New folder\\vng-assignment\\API:/app:rw"
+    - "D:\\New folder\\vng-assignment:/src:rw"
     working_dir: "/app"

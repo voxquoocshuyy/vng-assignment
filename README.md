@@ -25,7 +25,7 @@
 2. **Build and run:**
    ```bash
    cd vng-assignment
-   docker-compose up --build
+   docker-compose up
 3. **Swagger UI:**
    ```bash
    http://localhost:8081/swagger

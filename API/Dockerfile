@@ -20,7 +20,7 @@ RUN dotnet publish "API.csproj" -c Release -o /app/publish
 FROM base AS final
 WORKDIR /app
 COPY --from=publish /app/publish .
-
+ENTRYPOINT ["dotnet", "API.dll"]
 # Copy the entrypoint script
 #COPY entrypoint.sh /app/entrypoint.sh
 #RUN chmod +x /app/entrypoint.sh
