@@ -3,6 +3,9 @@
 ### Giới thiệu dự án
 
 **Dự án này** là một ứng dụng web được xây dựng dựa trên kiến trúc Clean Architecture, áp dụng mô hình CQRS (Command Query Responsibility Segregation), REST API và Quartz.
+</br>
+<img width="944" alt="image" src="https://github.com/user-attachments/assets/25af767d-d9a8-4885-9b65-3cee1d7da68a">
+
 
 **Các công nghệ chính:**
 
