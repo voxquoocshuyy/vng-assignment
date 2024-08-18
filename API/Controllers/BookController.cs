@@ -1,4 +1,5 @@
 using System.ComponentModel.DataAnnotations;
+using API.Extensions;
 using Application.Common.Models;
 using Application.Common.Results;
 using Application.Features.Books.Commands.CreateBook;
@@ -7,6 +8,7 @@ using Application.Features.Books.Commands.UpdateBook;
 using Application.Features.Books.Queries.GetBook;
 using Application.Features.Books.Queries.GetBooks;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -63,6 +65,7 @@ public class BookController : ControllerBase
     }
 
     [HttpDelete("{id:int}")]
+    [ServiceFilter(typeof(AuthHeaderFilter))]
     [SwaggerOperation(Summary = "Delete a book")]
     [ProducesResponseType(typeof(NoContentResult), StatusCodes.Status204NoContent)]
     public async Task<ActionResult> DeleteBook([Required] int id)

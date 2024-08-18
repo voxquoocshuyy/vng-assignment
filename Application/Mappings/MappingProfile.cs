@@ -1,6 +1,7 @@
 using Application.Common.Models;
 using Application.Common.Models.Users;
 using Application.Features.Books.Commands.CreateBook;
+using Application.Features.Books.Commands.UpdateBook;
 using Application.Features.Users.Commands.CreateUser;
 using Application.Features.Users.Queries.GetUsers;
 using AutoMapper;
@@ -20,6 +21,7 @@ public class MappingProfile : Profile
     {
         this.CreateMap<Book, BookDto>().ReverseMap();
         this.CreateMap<Book, CreateBookCommand>().ReverseMap();
+        this.CreateMap<Book, UpdateBookCommand>().ReverseMap();
     }
 
     private void UserProfile()

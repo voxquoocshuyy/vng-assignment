@@ -6,7 +6,7 @@ namespace Application.Features.Books.Commands.UpdateBook;
 
 public class UpdateBookCommand : IRequest<ApiResult<BookDto>>
 {
-    public int Id { get; set; }
+    public int Id { get; private set; }
     public void SetId(int id)
     {
         Id = id;
