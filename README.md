@@ -2,7 +2,7 @@
 
 ### Giới thiệu dự án
 
-**Dự án này** là một ứng dụng web được xây dựng dựa trên kiến trúc Clean Architecture, áp dụng mô hình CQRS (Command Query Responsibility Segregation) và cung cấp một REST API. Ứng dụng sử dụng Quartz để thực thi các background job, đảm bảo các tác vụ được xử lý một cách hiệu quả và tự động.
+**Dự án này** là một ứng dụng web được xây dựng dựa trên kiến trúc Clean Architecture, áp dụng mô hình CQRS (Command Query Responsibility Segregation), REST API và Quartz.
 
 **Các công nghệ chính:**
 
