@@ -6,17 +6,13 @@ namespace Domain.Entities;
 
 public class Book : EntityBase<int>
 {
-    [Key]
-    [Column(name: "Id", TypeName = "int")]
-    [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-    public int Id { get; set; }
-
+    [Required]
     [Column(name: "Title", TypeName = "varchar(50)")]
     public string Title { get; set; } = null!;
-
+    [Required]
     [Column(name: "Author", TypeName = "varchar(50)")]
     public string Author { get; set; } = null!;
-
+    [Required]
     [Column(name: "PublishedYear", TypeName = "int")]
     public int PublishedYear { get; set; }
 

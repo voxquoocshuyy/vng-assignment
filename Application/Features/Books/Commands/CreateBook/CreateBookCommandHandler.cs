@@ -1,4 +1,5 @@
 using Application.Common.Interfaces;
+using Application.Common.Models;
 using Application.Common.Results;
 using AutoMapper;
 using Domain.Entities;
@@ -6,7 +7,7 @@ using MediatR;
 
 namespace Application.Features.Books.Commands.CreateBook;
 
-public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, ApiResult<int>>
+public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, ApiResult<BookDto>>
 {
     private readonly IBookRepository _bookRepository;
     private readonly IMapper _mapper;
@@ -17,11 +18,12 @@ public class CreateBookCommandHandler : IRequestHandler<CreateBookCommand, ApiRe
         _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));
     }
     
-    public async Task<ApiResult<int>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
+    public async Task<ApiResult<BookDto>> Handle(CreateBookCommand request, CancellationToken cancellationToken)
     {
         var bookEntity = _mapper.Map<Book>(request);
-        var createdBookId = await _bookRepository.CreateAsync(bookEntity);
+        await _bookRepository.CreateAsync(bookEntity);
         await _bookRepository.SaveChangesAsync();
-        return new ApiSuccessResult<int>(createdBookId);
+        var result = _mapper.Map<BookDto>(bookEntity);
+        return new ApiSuccessResult<BookDto>(result);
     }
 }

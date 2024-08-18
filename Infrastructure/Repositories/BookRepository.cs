@@ -7,7 +7,8 @@ namespace Infrastructure.Repositories;
 
 public class BookRepository : RepositoryBaseAsync<Book, int, AssignmentContext>, IBookRepository
 {
-    public BookRepository(AssignmentContext dbContext, IUnitOfWork<AssignmentContext> unitOfWork) : base(dbContext, unitOfWork)
+    public BookRepository(AssignmentContext dbContext, IUnitOfWork<AssignmentContext> unitOfWork) : base(dbContext,
+        unitOfWork)
     {
     }
 }

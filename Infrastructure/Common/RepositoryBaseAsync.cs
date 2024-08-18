@@ -30,8 +30,7 @@ public class RepositoryBaseAsync<T, K, TContext> : IRepositoryBaseAsync<T, K, TC
     public Task RollbackTransactionAsync() => _dbContext.Database.RollbackTransactionAsync();
 
     public IQueryable<T> FindAll(bool trackChanges = false) =>
-        !trackChanges ? _dbContext.Set<T>().AsNoTracking() :
-            _dbContext.Set<T>();
+        !trackChanges ? _dbContext.Set<T>().AsNoTracking() : _dbContext.Set<T>();
 
     public IQueryable<T> FindAll(bool trackChanges = false, params Expression<Func<T, object>>[] includeProperties)
     {
@@ -45,7 +44,8 @@ public class RepositoryBaseAsync<T, K, TContext> : IRepositoryBaseAsync<T, K, TC
             ? _dbContext.Set<T>().Where(expression).AsNoTracking()
             : _dbContext.Set<T>().Where(expression);
 
-    public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = false, params Expression<Func<T, object>>[] includeProperties)
+    public IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression, bool trackChanges = false,
+        params Expression<Func<T, object>>[] includeProperties)
     {
         var items = FindByCondition(expression, trackChanges);
         items = includeProperties.Aggregate(items, (current, includeProperty) => current.Include(includeProperty));
@@ -57,19 +57,19 @@ public class RepositoryBaseAsync<T, K, TContext> : IRepositoryBaseAsync<T, K, TC
             .FirstOrDefaultAsync();
 
     public async Task<T?> GetByIdAsync(K id, params Expression<Func<T, object>>[] includeProperties) =>
-        await FindByCondition(x => x.Id.Equals(id), trackChanges:false, includeProperties)
+        await FindByCondition(x => x.Id.Equals(id), trackChanges: false, includeProperties)
             .FirstOrDefaultAsync();
 
-    public async Task<K> CreateAsync(T entity)
+    public async Task<T> CreateAsync(T entity)
     {
         await _dbContext.Set<T>().AddAsync(entity);
-        return entity.Id;
+        return entity;
     }
 
-    public async Task<IList<K>> CreateListAsync(IEnumerable<T> entities)
+    public async Task<IList<T>> CreateListAsync(IEnumerable<T> entities)
     {
         await _dbContext.Set<T>().AddRangeAsync(entities);
-        return entities.Select(x => x.Id).ToList();
+        return entities.ToList();
     }
 
     public Task UpdateAsync(T entity)
@@ -82,7 +82,22 @@ public class RepositoryBaseAsync<T, K, TContext> : IRepositoryBaseAsync<T, K, TC
         return Task.CompletedTask;
     }
 
-    public Task UpdateListAsync(IEnumerable<T> entities) => _dbContext.Set<T>().AddRangeAsync(entities);
+    public async Task UpdateListAsync(IEnumerable<T> entities)
+    {
+        foreach (var entity in entities)
+        {
+            if (_dbContext.Entry(entity).State == EntityState.Unchanged) continue;
+
+            T exist = _dbContext.Set<T>().Find(entity.Id);
+            if (exist != null)
+            {
+                _dbContext.Entry(exist).CurrentValues.SetValues(entity);
+            }
+        }
+
+        await _dbContext.SaveChangesAsync();
+    }
+
 
     public Task DeleteAsync(T entity)
     {

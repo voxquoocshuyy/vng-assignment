@@ -24,7 +24,7 @@ public static class ModuleRegister
                 //0h0m0s every day
                 // .WithCronSchedule("0 0 0 ? * *"));
                 //every minute
-                .WithCronSchedule("* * * ? * *"));
+                .WithCronSchedule("0 * * ? * *"));
             
             q.InterruptJobsOnShutdown = true;
         });

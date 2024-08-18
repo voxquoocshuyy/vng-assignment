@@ -16,8 +16,8 @@ public interface IRepositoryBaseAsync<T, K> where T : EntityBase<K>
 
     Task<T?> GetByIdAsync(K id);
     Task<T?> GetByIdAsync(K id, params Expression<Func<T, object>>[] includeProperties);
-    Task<K> CreateAsync(T entity);
-    Task<IList<K>> CreateListAsync(IEnumerable<T> entities);
+    Task<T> CreateAsync(T entity);
+    Task<IList<T>> CreateListAsync(IEnumerable<T> entities);
     Task UpdateAsync(T entity);
     Task UpdateListAsync(IEnumerable<T> entities);
     Task DeleteAsync(T entity);

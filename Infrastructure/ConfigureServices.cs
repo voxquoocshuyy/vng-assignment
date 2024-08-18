@@ -2,7 +2,6 @@ using Application.Common.Interfaces;
 using Infrastructure.Common;
 using Infrastructure.Persistence;
 using Infrastructure.Repositories;
-using Infrastructure.Services.MailServices;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -25,6 +24,7 @@ public static class ConfigureServices
             }));
         return services;
     }
+
     public static IServiceCollection AddInfrastructureServices(this IServiceCollection services,
         IConfiguration configuration)
     {
